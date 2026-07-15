@@ -5,7 +5,6 @@ import com.ems.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmployeeService {
@@ -16,7 +15,7 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public Employee saveEmployee(Employee employee) {
+    public Employee addEmployee(Employee employee) {
         return employeeRepository.save(employee);
     }
 
@@ -24,8 +23,8 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Optional<Employee> getEmployeeById(Long id) {
-        return employeeRepository.findById(id);
+    public Employee getEmployeeById(Long id) {
+        return employeeRepository.findById(id).orElse(null);
     }
 
     public void deleteEmployee(Long id) {

@@ -1,5 +1,7 @@
 package com.ems.controller;
 
+import com.ems.dto.EmployeeRequestDTO;
+import com.ems.dto.EmployeeResponseDTO;
 import com.ems.entity.Employee;
 import com.ems.service.EmployeeService;
 import jakarta.validation.Valid;
@@ -18,8 +20,10 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public Employee addEmployee(@Valid @RequestBody Employee employee) {
-        return employeeService.addEmployee(employee);
+    public EmployeeResponseDTO addEmployee(
+            @Valid @RequestBody EmployeeRequestDTO employeeRequestDTO) {
+
+        return employeeService.addEmployee(employeeRequestDTO);
     }
 
     @GetMapping

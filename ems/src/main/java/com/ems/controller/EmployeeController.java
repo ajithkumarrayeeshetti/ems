@@ -5,9 +5,9 @@ import com.ems.dto.EmployeeResponseDTO;
 import com.ems.entity.Employee;
 import com.ems.service.EmployeeService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -26,9 +26,10 @@ public class EmployeeController {
         return employeeService.addEmployee(employeeRequestDTO);
     }
 
+    // Pagination & Sorting
     @GetMapping
-    public List<Employee> getAllEmployees() {
-        return employeeService.getAllEmployees();
+    public Page<EmployeeResponseDTO> getEmployees(Pageable pageable) {
+        return employeeService.getEmployees(pageable);
     }
 
     @GetMapping("/{id}")

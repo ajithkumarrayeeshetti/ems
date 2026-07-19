@@ -5,9 +5,9 @@ import com.ems.dto.EmployeeResponseDTO;
 import com.ems.entity.Employee;
 import com.ems.exception.EmployeeNotFoundException;
 import com.ems.repository.EmployeeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class EmployeeService {
@@ -39,9 +39,17 @@ public class EmployeeService {
         );
     }
 
-    // Get All Employees
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+    // Get Employees with Pagination & Sorting
+    public Page<EmployeeResponseDTO> getEmployees(Pageable pageable) {
+
+        return employeeRepository.findAll(pageable)
+                .map(employee -> new EmployeeResponseDTO(
+                        employee.getId(),
+                        employee.getName(),
+                        employee.getEmail(),
+                        employee.getDepartment(),
+                        employee.getSalary()
+                ));
     }
 
     // Get Employee by ID
